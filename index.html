@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous">
+    </script>
+    <script>
+      let numNotes = 1;
+      function addNote(author, content) {
+          numNotes++;
+          let newNote = `<div id = 'note${numNotes}' class = 'note'>`
+                  +`<div class = 'author'> ${author} </div>`
+                  +`<div class = 'content'> ${content} (${numNotes}) </div>`
+                  +"</div>";
+          $("#wall").append(newNote);
+      }
+      $( document ).ready(function() {
+        //alert( "ready!" );
+        // $("#note1").hide();
+        $("#add_note_button").click(function(){
+            addNote("Ben", "Blah blah blah");
+        });
+      });
+    </script>
+    <meta charset="utf-8">
+    <title>Hell Yeah World!</title>
+    <style>
+      #wall
+      {
+        background-color: lightyellow;
+        height: 15in;
+        width: 10in;
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid black;
+      }
+      .note
+      {
+        background-color: lightblue;
+        height: 100px;
+        width: 150px;
+        padding: 10px;
+        margin: 10px 10px 10px 10px;
+        border-radius: 10px;
+        border: 2px solid black;
+      }
+      #controls
+      {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id = "main">
+      <div class = "banner">
+        Welcome to hell yeah world!
+        The online world where kids say "hell yeah"!
+      </div>
+      <div id = "controls">
+        <input type="text" id="author_name"/>
+        <input type="text" id="note_content"/>
+        <button id = "add_note_button" class = "button">Add Note! =)</button>
+      </div>
+      <div id = "wall">
+          <div id = "note1" class = "note">
+              <div class = "author">
+                  Clippy
+              </div>
+              <div class = "content">
+                  Hell Yeah!
+              </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
