@@ -8,19 +8,22 @@
     </script>
     <script>
       let numNotes = 1;
-      function addNote(author, content) {
+      function postNote(author, content) {
           numNotes++;
           let newNote = `<div id = 'note${numNotes}' class = 'note'>`
                   +`<div class = 'author'> ${author} </div>`
-                  +`<div class = 'content'> ${content} (${numNotes}) </div>`
+                  + `<br>`
+                  +`<div class = 'content'> ${content} </div>`
                   +"</div>";
           $("#wall").append(newNote);
       }
       $( document ).ready(function() {
-        //alert( "ready!" );
-        // $("#note1").hide();
-        $("#add_note_button").click(function(){
-            addNote("Ben", "Blah blah blah");
+        $("#post_note_button").click(function(){
+            var author_name = $("#author_name").val();
+            var note_content = $("#note_content").val();
+            postNote(author_name, note_content);
+            $("#author_name").val(" ");
+            $("#note_content").val(" ");
         });
       });
     </script>
@@ -50,6 +53,7 @@
       {
         text-align: center;
       }
+
     </style>
   </head>
   <body>
@@ -58,20 +62,18 @@
         Welcome to hell yeah world!
         The online world where kids say "hell yeah"!
       </div>
-      <div id = "controls">
-        <input type="text" id="author_name"/>
-        <input type="text" id="note_content"/>
-        <button id = "add_note_button" class = "button">Add Note! =)</button>
-      </div>
+      <!-- <div id = "controls">
+      </div> -->
       <div id = "wall">
-          <div id = "note1" class = "note">
-              <div class = "author">
-                  Clippy
-              </div>
-              <div class = "content">
-                  Hell Yeah!
-              </div>
-          </div>
+        <div id = "note_template" class = "note">
+            <div class = "author">
+                  <label>Name: <input type="text" id="author_name" size="10"/></label>
+            </div>
+            <div class = "content">
+                <label>Say hello!<input type="text" id="note_content" size="10"/></label>
+            </div>
+            <button id = "post_note_button" class = "button">Add Note! =)</button>
+        </div>
       </div>
     </div>
   </body>
