@@ -1,6 +1,11 @@
 let numNotes = 1;
 let roster = ["Ben", "Miranda", "Redeat", "Irene", "Jae"];
 
+function switchTab(tabToHide, tabToShow) {
+    $(`#${tabToHide}`).hide();
+    $(`#${tabToShow}`).show();
+}
+
 function checkRoster(author) {
   return roster.includes(author);
 }
@@ -28,7 +33,7 @@ function postNote(author, content) {
     $("#wall").append(newNote);
 }
 $( document ).ready(function() {
-  displayRoster();
+  displayRoster()
   $("#post_note_button").click(function(){
       var author_name = $("#author_name").val();
       if (!checkRoster(author_name)) {

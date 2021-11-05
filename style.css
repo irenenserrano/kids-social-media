@@ -17,7 +17,7 @@
   border-radius: 10px;
   border: 2px solid black;
 }
-#controls
+#roster
 {
-  text-align: center;
+  display: none;
 }

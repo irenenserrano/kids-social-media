@@ -2,7 +2,6 @@
 <html lang="en" dir="ltr">
   <head>
     <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
-
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -14,6 +13,11 @@
   </head>
   <body>
     <div id = "main">
+      <div class="tab">
+        <button class="tab_links" onclick="switchTab('wall','roster')">Roster</button>
+        <button class="tab_links" onclick="switchTab('roster','wall')">Wall</button>
+      </div>
+
       <div class = "banner">
         Welcome to hell yeah world!
         The online world where kids say "hell yeah"!
@@ -27,6 +31,15 @@
                 <label>Say hello!<input type="text" id="note_content" size="10"/></label>
             </div>
             <button id = "post_note_button" class = "button">Add Note! =)</button>
+        </div>
+      </div>
+      <div id="roster">
+        <div id="roster_input">
+          <label>Enter Student Name: <input type="text" id="student_name"/></label>
+          <button id = "add_student" class = "button">Add Student</button>
+        </div>
+        <div id="roster_display">
+
         </div>
       </div>
     </div>
