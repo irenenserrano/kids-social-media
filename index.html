@@ -14,8 +14,9 @@
   <body>
     <div id = "main">
       <div class="tab">
-        <button class="tab_links" onclick="switchTab('wall','roster')">Roster</button>
-        <button class="tab_links" onclick="switchTab('roster','wall')">Wall</button>
+        <button class="tab_links" onclick="switchTab('wall')">Wall</button>
+        <button class="tab_links" onclick="switchTab('roster')">Roster</button>
+        <button class="tab_links" onclick="switchTab('login')">Login</button>
       </div>
 
       <div class = "banner">
@@ -38,9 +39,12 @@
           <label>Enter Student Name: <input type="text" id="student_name"/></label>
           <button id = "add_student" class = "button">Add Student</button>
         </div>
-        <div id="roster_display">
-
-        </div>
+        <div id="roster_display"></div>
+      </div>
+      <div id="login">
+        <label>Username: <input type = "text" id="username"/></label>
+        <br><label>Password: <input type = "text" id="password"/></label>
+        <button id = "login_button" class = "button">Login</button>
       </div>
     </div>
   </body>

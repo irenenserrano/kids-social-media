@@ -1,8 +1,12 @@
 let numNotes = 1;
 let roster = ["Ben", "Miranda", "Redeat", "Irene", "Jae"];
+let tabs = ["wall", "roster", "login"];
 
-function switchTab(tabToHide, tabToShow) {
-    $(`#${tabToHide}`).hide();
+function switchTab(tabToShow) {
+    tabs.forEach((item, i) => {
+      if(item != tabToShow)
+        $(`#${item}`).hide();
+    });
     $(`#${tabToShow}`).show();
 }
 
@@ -23,9 +27,16 @@ function displayRoster(){
   });
 }
 
+function deleteNote(noteId) {
+  let confirmation = confirm("Are you sure you want to delete this note?");
+  if(confirmation)
+    $(`#note${noteId}`).remove();
+}
+
 function postNote(author, content) {
     numNotes++;
     let newNote = `<div id = 'note${numNotes}' class = 'note'>`
+            +`<button class = 'delete_button' onclick = 'deleteNote(${numNotes})'>X</button>  `
             +`<div class = 'author'> ${author} </div>`
             + `<br>`
             +`<div class = 'content'> ${content} </div>`
@@ -42,8 +53,8 @@ $( document ).ready(function() {
       }
       var note_content = $("#note_content").val();
       postNote(author_name, note_content);
-      $("#author_name").val(" ");
-      $("#note_content").val(" ");
+      $("#author_name").val("");
+      $("#note_content").val("");
 
   });
   $("#add_student").click(function(){
