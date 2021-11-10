@@ -1,6 +1,29 @@
 let numNotes = 1;
+// table: first name, last name, username
 let roster = ["Ben", "Miranda", "Redeat", "Irene", "Jae"];
 let tabs = ["wall", "roster", "login"];
+let useraccount = new Map();
+useraccount.set('iserrano', 'hello');
+
+function createStudentAccount(username, password) {
+    useraccount.set(username, password);
+    alert("Successfully added to useraccount list.");
+}
+
+function verifyLogin(username, password){
+  if(useraccount.has(username)) {
+    var existingPassword = useraccount.get(username);
+    if(password == existingPassword) {
+        alert("Successful login.");
+    }
+    else {
+        alert("Incorrect password.");
+    }
+  }
+  else {
+      alert("User does not exist.");
+  }
+}
 
 function switchTab(tabToShow) {
     tabs.forEach((item, i) => {
@@ -44,7 +67,7 @@ function postNote(author, content) {
     $("#wall").append(newNote);
 }
 $( document ).ready(function() {
-  displayRoster()
+  displayRoster();
   $("#post_note_button").click(function(){
       var author_name = $("#author_name").val();
       if (!checkRoster(author_name)) {
@@ -61,5 +84,10 @@ $( document ).ready(function() {
     var student_name = $("#student_name").val();
     addStudent(student_name);
     $("#student_name").val("");
+  });
+  $("#login_button").click(function() {
+      var username = $("#username").val();
+      var password = $("#password").val();
+      verifyLogin(username, password);
   });
 });
