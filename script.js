@@ -3,7 +3,7 @@ let roster;
 let localStorage;
 let tabs = ["wall", "roster", "login"];
 let useraccount = new Map();
-let notes = [];
+let notes;
 //useraccount.set('iserrano', 'hello');
 
 function createStudentAccount(username, password) {
@@ -53,18 +53,33 @@ function displayRoster(){
 }
 
 function deleteNote(noteId) {
-  let confirmation = confirm("Are you sure you want to delete this note?");
-  if(confirmation)
-    $(`#note${noteId}`).remove();
+  var pos = -1;
+  notes.forEach((note, i) => {
+    if(note.postId == noteId){
+      pos = i;
+    }
+  });
+  notes.splice(pos, 1);
+  localStorage.setItem('persistentNotes', JSON.stringify(notes));
+  $(`#note${noteId}`).remove();
+}
+
+function likeNote(noteId) {
+  var isLiked = document.getElementById(`like_button_${noteId}`);
+  if(isLiked.innerHTML=="( ͡° ͜ʖ ͡°)"){
+    isLiked.innerHTML="&#128513"
+  } else {
+    isLiked.innerHTML="( ͡° ͜ʖ ͡°)"
+  }
 }
 
 function displayNote(author, content, id) {
-
     let newNote = `<div id = 'note${id}' class = 'note'>`
-            +`<button class = 'delete_button' onclick = 'deleteNote(${numNotes})'>X</button>  `
+            +`<button class = 'delete_button' onclick = 'deleteNote(${id})'>X</button>`
             +`<div class = 'author'> ${author} </div>`
             + `<br>`
             +`<div class = 'content'> ${content} </div>`
+            +`<button id = 'like_button_${id}' class = 'like_button' onclick = 'likeNote(${id})'>( ͡° ͜ʖ ͡°)</button>`
             +"</div>";
     $("#wall").append(newNote);
 }
@@ -73,20 +88,22 @@ function addNote(author, content, id) {
     let note = {
         'postId': id,
         'author': author,
-        'content': content
+        'content': content,
+        //'like': isLiked
     };
     notes.push(note);
 }
 
 function handleNote(author, content) {
     numNotes++;
-    addNote(author, content, numNotes);
-    displayNote(author, content, numNotes);
+    addNote(author, content, numNotes, 0);
     localStorage.setItem('persistentNotes', JSON.stringify(notes));
+    displayNote(author, content, numNotes);
 }
 
 $( document ).ready(function() {
     localStorage = window.localStorage;
+    //localStorage.clear();
     if (localStorage.getItem('persistentRoster') == null) {
         roster = ["Ben", "Miranda", "Redeat", "Irene", "Jae"];
         localStorage.setItem('persistentRoster', JSON.stringify(roster));
@@ -96,11 +113,15 @@ $( document ).ready(function() {
         console.log("Roster loaded");
     }
     if (localStorage.getItem('persistentNotes') == null) {
+        notes = [];
         localStorage.setItem('persistentNotes', JSON.stringify(notes));
         console.log("Notes initialized");
     } else {
         notes = JSON.parse(localStorage.getItem('persistentNotes'));
         console.log("Notes loaded");
+        notes.forEach(note => {
+          displayNote(note.author, note.content, note.postId);
+        });
     }
 
   displayRoster();
@@ -122,7 +143,7 @@ $( document ).ready(function() {
     addStudent(student_name);
     $("#student_name").val("");
   });
-  
+
   $("#login_button").click(function() {
       var username = $("#username").val();
       var password = $("#password").val();
